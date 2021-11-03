@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class EmailJaCadastradoException extends RuntimeException {
     public EmailJaCadastradoException(String email) {
-        super(String.format("Já existe um recurso do tipo Usuario com E-Mail com o valor %s.",email));
+        super(String.format("Já existe um recurso do tipo Usuario com E-Mail com o valor '%s'.",email));
     }
 }

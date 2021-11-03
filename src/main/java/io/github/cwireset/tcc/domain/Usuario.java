@@ -1,9 +1,12 @@
 package io.github.cwireset.tcc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
@@ -27,6 +30,7 @@ public class Usuario {
     private String email;
 
     @NotNull(message = "Campo Obrigatório não informado")
+    @JsonProperty("senha")
     private String senha;
 
     @Pattern(regexp = "\\d{11}", message = "O CPF deve ser informado no formato 99999999999.")
