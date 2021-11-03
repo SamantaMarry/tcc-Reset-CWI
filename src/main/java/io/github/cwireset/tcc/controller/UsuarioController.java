@@ -18,7 +18,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario cadastrarUsuario(@RequestBody Usuario usuario){
+    public Usuario cadastrarUsuario(@RequestBody @Valid Usuario usuario) throws Exception{
         return usuarioService.cadastrarUsuario(usuario);
     }
 
