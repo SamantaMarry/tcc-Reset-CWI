@@ -2,10 +2,11 @@ package io.github.cwireset.tcc.repository;
 
 import io.github.cwireset.tcc.domain.Usuario;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
+public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long> {
 
     boolean existsByCpf(String cpf);
 

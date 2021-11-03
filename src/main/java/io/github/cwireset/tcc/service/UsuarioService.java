@@ -5,7 +5,10 @@ import io.github.cwireset.tcc.exception.CpfJaCadastradoException;
 import io.github.cwireset.tcc.exception.EmailJaCadastradoException;
 import io.github.cwireset.tcc.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UsuarioService {
@@ -27,5 +30,9 @@ public class UsuarioService {
         return repository.save(usuario);
 
 
+    }
+
+    public Page<Usuario> listarUsuarios(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
