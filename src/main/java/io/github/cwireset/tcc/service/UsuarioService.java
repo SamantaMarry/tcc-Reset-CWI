@@ -14,5 +14,7 @@ public class UsuarioService {
 
     public Usuario cadastrarUsuario(Usuario usuario) {
         return repository.save(usuario);
+
+
     }
 }
