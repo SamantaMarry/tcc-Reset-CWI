@@ -1,6 +1,6 @@
 package io.github.cwireset.tcc.controller;
 
-import com.sun.net.httpserver.Authenticator;
+
 import io.github.cwireset.tcc.domain.Usuario;
 import io.github.cwireset.tcc.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/usuarios")
@@ -28,9 +30,15 @@ public class UsuarioController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<Usuario> listarUsuarios(Pageable pageable){
+    public Page<Usuario> listarUsuarios(@Valid Pageable pageable){
         return usuarioService.listarUsuarios(pageable);
     }
+
+    @GetMapping(path = "/{idUsuario}")
+    public Optional<Usuario> consultarUsuario(@PathVariable @Valid @NotNull(message = "Campo obrigatório não informado. Favor informar o campo id.") Long id) throws Exception {
+        return usuarioService.consultarUsuario(id);
+    }
+
 
 
 }
