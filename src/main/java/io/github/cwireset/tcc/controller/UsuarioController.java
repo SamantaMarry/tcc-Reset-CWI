@@ -2,6 +2,7 @@ package io.github.cwireset.tcc.controller;
 
 
 import io.github.cwireset.tcc.domain.Usuario;
+import io.github.cwireset.tcc.request.AtualizarUsuarioRequest;
 import io.github.cwireset.tcc.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,10 +35,30 @@ public class UsuarioController {
         return usuarioService.listarUsuarios(pageable);
     }
 
-    @GetMapping(path = "/{idUsuario}")
-    public Optional<Usuario> consultarUsuario(@PathVariable @Valid @NotNull(message = "Campo obrigatório não informado. Favor informar o campo id.") Long id) throws Exception {
-        return usuarioService.consultarUsuario(id);
+    @GetMapping(path = "/{id}")
+    public Optional<Usuario> consultarUsuarioId(@PathVariable
+                                                @Valid
+                                                @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.")
+                                                         Long id) throws Exception {
+        return usuarioService.consultarUsuarioId(id);
     }
+
+    @GetMapping(path = "/cpf/{cpf}")
+    public Optional<Usuario> consultarUsuarioCpf(@PathVariable
+                                                 @Valid
+                                                 @NotNull(message = "Campo obrigatório não informado. Favor informar o campo CPF.")
+                                                          String cpf) throws Exception {
+        return usuarioService.consultarUsuarioCpf(cpf);
+    }
+
+    @PutMapping(path = "/{id}")
+    public void alterarUsuario(@PathVariable
+                               @Valid
+                               @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.")
+                                        Long id, @RequestBody @Valid AtualizarUsuarioRequest atualizarUsuarioRequest) throws Exception{
+        usuarioService.alterarUsuario(id, atualizarUsuarioRequest);
+    }
+
 
 
 

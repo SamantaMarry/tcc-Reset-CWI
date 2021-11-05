@@ -15,4 +15,7 @@ public interface UsuarioRepositoryImpl extends PagingAndSortingRepository<Usuari
     boolean existsByEmail(String email);
 
     Optional<Usuario> findById(Long id);
+
+    Optional<Usuario> findByCpf(String cpf);
+
 }
