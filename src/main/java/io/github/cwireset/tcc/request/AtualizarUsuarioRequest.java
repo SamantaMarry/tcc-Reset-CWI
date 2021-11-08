@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.cwireset.tcc.domain.Endereco;
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -34,8 +31,6 @@ public class AtualizarUsuarioRequest {
     @NotNull(message = "Campo Obrigatório não informado")
     private LocalDate dataNascimento;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
 }

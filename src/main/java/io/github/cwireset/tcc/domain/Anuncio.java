@@ -38,4 +38,7 @@ public class Anuncio {
 
     private String descricao;
 
+    public Anuncio(TipoAnuncio tipoAnuncio, Imovel imovel, Usuario usuario, BigDecimal valorDiaria, List<FormaPagamento> formasAceitas, String descricao) {
+
+    }
 }

@@ -28,7 +28,7 @@ public class ImovelController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Imovel cadastrarImovel(@RequestBody @Valid CadastrarImovelRequest cadastrarImovelRequest) throws Exception {
-        return imovelService.cadastrarImovel(cadastrarImovelRequest);
+        return this.imovelService.cadastrarImovel(cadastrarImovelRequest);
     }
 
     @GetMapping
@@ -37,18 +37,20 @@ public class ImovelController {
         return imovelService.listarImoveis(pageable);
     }
 
-   /* @GetMapping("/proprietarios/{idProprietario}")
+    @GetMapping("/proprietarios/{idProprietario}")
     @ResponseStatus(HttpStatus.OK)
-    public Imovel consultarImovelProprietario(@Valid Long idProprietario){
+    public Imovel consultarImovelProprietario(@PathVariable
+                                                  @Valid
+                                                  @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long idProprietario){
         return imovelService.consultarImovelProprietario(idProprietario);
-    }*/
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Imovel consultarImovelId(@PathVariable
                                         @Valid
                                         @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long id) throws Exception {
-        return imovelService.consultarImovelId(id);
+        return this.imovelService.consultarImovelId(id);
     }
 
     @DeleteMapping("/{id}")

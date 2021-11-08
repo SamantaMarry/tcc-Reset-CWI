@@ -26,7 +26,7 @@ public class ImovelService {
 
     public Imovel cadastrarImovel(CadastrarImovelRequest cadastrarImovelRequest) throws Exception {
         Usuario usuario =
-                usuarioService.consultarUsuarioId(cadastrarImovelRequest.getProprietario().getId());
+                this.usuarioService.consultarUsuarioId(cadastrarImovelRequest.getProprietario().getId());
         Imovel imovel = new CadastrarImovelRequest().converterParaObjeto(cadastrarImovelRequest, usuario);
         return this.repository.save(imovel);
     }
@@ -35,13 +35,14 @@ public class ImovelService {
         return this.repository.findAll(pageable);
     }
 
-   /* public Imovel consultarImovelProprietario(Long idProprietario){
-        return repository.findByIdProprietario(//idProprietario);
+    public Imovel consultarImovelProprietario(Long idProprietario){
+        return this.repository.findById(idProprietario)
+                .orElseThrow(() -> new IdNaoEncontradoException(idProprietario));
 
-    }*/
+    }
 
     public Imovel consultarImovelId(Long id) throws Exception{
-        return repository.findById(id)
+        return this.repository.findById(id)
                 .orElseThrow(() -> new IdNaoEncontradoException(id));
 
     }
