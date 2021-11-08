@@ -35,16 +35,16 @@ public class UsuarioController {
         return usuarioService.listarUsuarios(pageable);
     }
 
-    @GetMapping(path = "/{id}")
-    public Optional<Usuario> consultarUsuarioId(@PathVariable
+    @GetMapping(path = "/{idUsuario}")
+    public Usuario consultarUsuarioId(@PathVariable
                                                 @Valid
                                                 @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.")
-                                                         Long id) throws Exception {
-        return usuarioService.consultarUsuarioId(id);
+                                                         Long idUsuario) throws Exception {
+        return usuarioService.consultarUsuarioId(idUsuario);
     }
 
     @GetMapping(path = "/cpf/{cpf}")
-    public Optional<Usuario> consultarUsuarioCpf(@PathVariable
+    public Usuario consultarUsuarioCpf(@PathVariable
                                                  @Valid
                                                  @NotNull(message = "Campo obrigatório não informado. Favor informar o campo CPF.")
                                                           String cpf) throws Exception {

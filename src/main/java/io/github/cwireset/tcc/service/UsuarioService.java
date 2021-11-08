@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 
 @Service
 public class UsuarioService {
@@ -40,24 +38,20 @@ public class UsuarioService {
         return repository.findAll(pageable);
     }
 
-    public Optional<Usuario> consultarUsuarioId(Long id) throws Exception{
-        if (!repository.existsById(id)){
-            throw new IdNaoEncontradoException(id);
+    public Usuario consultarUsuarioId(Long id) throws Exception{
+        return repository.findById(id)
+                .orElseThrow(() -> new IdNaoEncontradoException(id));
 
-        }
-        return repository.findById(id);
     }
 
-    public Optional<Usuario> consultarUsuarioCpf(String cpf) throws Exception{
-        if (!repository.existsByCpf(cpf)){
-            throw new CpfNaoEncontradoException(cpf);
-
-        }
-        return repository.findByCpf(cpf);
+    public Usuario consultarUsuarioCpf(String cpf) throws Exception {
+        return repository.findByCpf(cpf)
+                .orElseThrow(() -> new CpfNaoEncontradoException(cpf));
     }
+
 
     public Usuario alterarUsuario(Long id, AtualizarUsuarioRequest atualizarUsuarioRequest) throws Exception {
-        Optional<Usuario> usuario = consultarUsuarioId(id);
+        Usuario usuario = consultarUsuarioId(id);
 
         if (!repository.existsById(id)){
             throw new IdNaoEncontradoException(id);
@@ -65,10 +59,12 @@ public class UsuarioService {
         if (repository.existsByEmail(atualizarUsuarioRequest.getEmail())){
             throw new EmailJaCadastradoException(atualizarUsuarioRequest.getEmail());
         }
-        usuario.get().setNome(atualizarUsuarioRequest.getNome());
-        usuario.get().setEmail(atualizarUsuarioRequest.getEmail());
-        usuario.get().setSenha(atualizarUsuarioRequest.getSenha());
-        usuario.get().setEndereco(atualizarUsuarioRequest.getEndereco());
-        return repository.save(usuario.get());
+        usuario.setNome(atualizarUsuarioRequest.getNome());
+        usuario.setEmail(atualizarUsuarioRequest.getEmail());
+        usuario.setSenha(atualizarUsuarioRequest.getSenha());
+        usuario.setEndereco(atualizarUsuarioRequest.getEndereco());
+        return repository.save(usuario);
     }
+
+
 }

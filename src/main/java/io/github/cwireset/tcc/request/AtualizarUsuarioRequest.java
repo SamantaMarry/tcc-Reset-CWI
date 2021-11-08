@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 @Builder
 public class AtualizarUsuarioRequest {
 
-    @NotNull(message = "Campo Obrigatório não informado")
+    @NotBlank(message = "Campo Obrigatório não informado")
     private String nome;
 
 
@@ -27,7 +28,7 @@ public class AtualizarUsuarioRequest {
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull(message = "Campo Obrigatório não informado")
+    @NotBlank(message = "Campo Obrigatório não informado")
     private String senha;
 
     @NotNull(message = "Campo Obrigatório não informado")
