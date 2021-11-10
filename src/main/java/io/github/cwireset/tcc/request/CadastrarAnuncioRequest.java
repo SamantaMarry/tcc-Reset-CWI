@@ -44,7 +44,7 @@ public class CadastrarAnuncioRequest {
                 anunciante,
                 cadastrarAnuncioRequest.getValorDiaria(),
                 cadastrarAnuncioRequest.getFormasAceitas(),
-                cadastrarAnuncioRequest.getDescricao());
+                cadastrarAnuncioRequest.getDescricao(),StatusAnuncio.ATIVO);
     }
 
 

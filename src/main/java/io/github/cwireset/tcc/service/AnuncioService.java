@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnuncioService {
 
@@ -32,25 +34,30 @@ public class AnuncioService {
         Usuario anunciante = this.usuarioService.consultarUsuarioId(cadastrarAnuncioRequest.getIdAnunciante());
         Anuncio anuncio = new CadastrarAnuncioRequest().converterParaObjeto(cadastrarAnuncioRequest, imovelAnunciado,
                 anunciante);
+
         return this.repository.save(anuncio);
     }
 
 
-
     public Page<Anuncio> listarAnuncios(Pageable pageable) {
-        return this.repository.findAll(pageable);
-    }
-
-
-    public Anuncio consultarAnuncioIdAnunciante(Long idAnunciante) throws Exception{
-        return this.repository.findById(idAnunciante)
-                .orElseThrow(() -> new IdNaoEncontradoException(idAnunciante));
+        return this.repository.findByStatus(StatusAnuncio.ATIVO, pageable);
 
     }
 
-    public void removerAnuncio(Long idAnuncio) throws Exception {
-        Anuncio anuncio = consultarAnuncioIdAnunciante(idAnuncio);
-       // anuncio.setStatus(StatusAnuncio.INATIVO);
-        repository.delete(anuncio);
+    public Anuncio consultarAnuncioId(Long id){
+        return this.repository.findById(id)
+                .orElseThrow(() -> new IdNaoEncontradoException(id));
+    }
+
+
+    public List<Anuncio> consultarAnuncioIdAnunciante(Long idAnunciante) throws Exception{
+        return this.repository.findByAnuncianteIdAndStatus(idAnunciante, StatusAnuncio.ATIVO);
+    }
+
+    public void removerAnuncio(Long id)  {
+        Anuncio anuncio = consultarAnuncioId(id);
+        anuncio.setStatus(StatusAnuncio.INATIVO);
+        repository.save(anuncio);
+
     }
 }

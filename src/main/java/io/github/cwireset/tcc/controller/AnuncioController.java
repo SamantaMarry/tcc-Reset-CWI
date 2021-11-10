@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RequestMapping("/anuncios")
 @RestController
@@ -38,7 +39,7 @@ public class AnuncioController {
 
     @GetMapping(path = "/anunciantes/{idAnunciante}")
     @ResponseStatus(HttpStatus.OK)
-    public Anuncio consultarAnuncioId(@PathVariable @Valid Long idAnunciante) throws Exception{
+    public List<Anuncio> consultarAnuncioId(@PathVariable @Valid Long idAnunciante) throws Exception{
         return anuncioService.consultarAnuncioIdAnunciante(idAnunciante);
     }
 
@@ -50,8 +51,6 @@ public class AnuncioController {
         this.anuncioService.removerAnuncio(idAnuncio);
 
     }
-
-
 
 
 

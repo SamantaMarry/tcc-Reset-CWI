@@ -36,10 +36,7 @@ public class ImovelService {
     }
 
     public List<Imovel> consultarImovelProprietario(Long idProprietario) throws Exception {
-
-        
-
-        return this.repository.findAllById(idProprietario);
+        return this.repository.findByProprietarioId(idProprietario);
 
     }
 

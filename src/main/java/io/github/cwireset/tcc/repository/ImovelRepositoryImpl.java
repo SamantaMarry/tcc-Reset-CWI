@@ -1,6 +1,7 @@
 package io.github.cwireset.tcc.repository;
 
 
+import io.github.cwireset.tcc.domain.Anuncio;
 import io.github.cwireset.tcc.domain.Imovel;
 import io.github.cwireset.tcc.domain.Usuario;
 import io.github.cwireset.tcc.request.CadastrarImovelRequest;
@@ -14,5 +15,5 @@ import java.util.Optional;
 public interface ImovelRepositoryImpl extends PagingAndSortingRepository<Imovel, Long> {
 
 
-    List<Imovel> findAllById(Long idProprietario);
+    List<Imovel> findByProprietarioId(Long Id);
 }
