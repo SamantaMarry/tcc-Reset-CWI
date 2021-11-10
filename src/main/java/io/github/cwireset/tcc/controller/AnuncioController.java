@@ -1,7 +1,7 @@
 package io.github.cwireset.tcc.controller;
 
 import io.github.cwireset.tcc.domain.Anuncio;
-import io.github.cwireset.tcc.domain.Imovel;
+
 import io.github.cwireset.tcc.request.CadastrarAnuncioRequest;
 import io.github.cwireset.tcc.service.AnuncioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ public class AnuncioController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public Anuncio anunciarImovel(@RequestBody @Valid CadastrarAnuncioRequest cadastrarAnuncioRequest) throws Exception{
-        return anuncioService.anunciarImovel(cadastrarAnuncioRequest);
+        return this.anuncioService.anunciarImovel(cadastrarAnuncioRequest);
     }
 
     @GetMapping
@@ -36,18 +36,18 @@ public class AnuncioController {
         return anuncioService.listarAnuncios(pageable);
     }
 
-    @GetMapping("/anunciantes/{idAnunciante}")
+    @GetMapping(path = "/anunciantes/{idAnunciante}")
     @ResponseStatus(HttpStatus.OK)
     public Anuncio consultarAnuncioId(@PathVariable @Valid Long idAnunciante) throws Exception{
         return anuncioService.consultarAnuncioIdAnunciante(idAnunciante);
     }
 
-    @DeleteMapping("/{idAnuncio}")
+    @DeleteMapping(path = "/{idAnuncio}")
     @ResponseStatus(HttpStatus.OK)
     public void removerAnuncio(@PathVariable
                               @Valid
-                              @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long id) throws Exception{
-        this.anuncioService.removerAnuncio(id);
+                              @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long idAnuncio) throws Exception{
+        this.anuncioService.removerAnuncio(idAnuncio);
 
     }
 

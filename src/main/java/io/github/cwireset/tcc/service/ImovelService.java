@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -25,9 +26,8 @@ public class ImovelService {
     }
 
     public Imovel cadastrarImovel(CadastrarImovelRequest cadastrarImovelRequest) throws Exception {
-        Usuario usuario =
-                this.usuarioService.consultarUsuarioId(cadastrarImovelRequest.getProprietario().getId());
-        Imovel imovel = new CadastrarImovelRequest().converterParaObjeto(cadastrarImovelRequest, usuario);
+        Usuario proprietario = this.usuarioService.consultarUsuarioId(cadastrarImovelRequest.getIdProprietario());
+        Imovel imovel = new CadastrarImovelRequest().converterParaObjeto(cadastrarImovelRequest, proprietario);
         return this.repository.save(imovel);
     }
 
@@ -35,23 +35,25 @@ public class ImovelService {
         return this.repository.findAll(pageable);
     }
 
-    public Imovel consultarImovelProprietario(Long idProprietario){
-        return this.repository.findById(idProprietario)
-                .orElseThrow(() -> new IdNaoEncontradoException(idProprietario));
+    public List<Imovel> consultarImovelProprietario(Long idProprietario) throws Exception {
+
+        
+
+        return this.repository.findAllById(idProprietario);
 
     }
 
-    public Imovel consultarImovelId(Long id) throws Exception{
-        return this.repository.findById(id)
-                .orElseThrow(() -> new IdNaoEncontradoException(id));
+    public Imovel consultarImovelId(Long idImovel) throws Exception{
+        return this.repository.findById(idImovel)
+                .orElseThrow(() -> new IdNaoEncontradoException(idImovel));
 
     }
 
-    public void removerImovel(Long id) throws Exception{
-        Imovel imovel = consultarImovelId(id);
+    public void removerImovel(Long idImovel) throws Exception{
+        Imovel imovel = consultarImovelId(idImovel);
 
-        if (!repository.existsById(id)){
-            throw new IdNaoEncontradoException(id);
+        if (!repository.existsById(idImovel)){
+            throw new IdNaoEncontradoException(idImovel);
         }
         this.repository.delete(imovel);
 

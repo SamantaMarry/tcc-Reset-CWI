@@ -3,9 +3,9 @@ package io.github.cwireset.tcc.service;
 
 import io.github.cwireset.tcc.domain.Anuncio;
 import io.github.cwireset.tcc.domain.Imovel;
+import io.github.cwireset.tcc.domain.StatusAnuncio;
 import io.github.cwireset.tcc.domain.Usuario;
 import io.github.cwireset.tcc.exception.IdNaoEncontradoException;
-import io.github.cwireset.tcc.exception.JaExisteAnuncioComIdImovelException;
 import io.github.cwireset.tcc.repository.AnuncioRepositoryImpl;
 import io.github.cwireset.tcc.request.CadastrarAnuncioRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,15 @@ public class AnuncioService {
         this.imovelService = imovelService;
     }
 
-
     public Anuncio anunciarImovel(CadastrarAnuncioRequest cadastrarAnuncioRequest) throws Exception {
-        Imovel imovel = this.imovelService.consultarImovelId(cadastrarAnuncioRequest.getImovel().getId());
-        Usuario usuario = this.usuarioService.consultarUsuarioId(cadastrarAnuncioRequest.getAnunciante().getId());
-        Anuncio anuncio = new Anuncio(cadastrarAnuncioRequest.getTipoAnuncio(),
-                imovel, usuario, cadastrarAnuncioRequest.getValorDiaria(), cadastrarAnuncioRequest.getFormasAceitas()
-                , cadastrarAnuncioRequest.getDescricao());
-
-        return anuncio;
-
+        Imovel imovelAnunciado = this.imovelService.consultarImovelId(cadastrarAnuncioRequest.getIdImovel());
+        Usuario anunciante = this.usuarioService.consultarUsuarioId(cadastrarAnuncioRequest.getIdAnunciante());
+        Anuncio anuncio = new CadastrarAnuncioRequest().converterParaObjeto(cadastrarAnuncioRequest, imovelAnunciado,
+                anunciante);
+        return this.repository.save(anuncio);
     }
+
+
 
     public Page<Anuncio> listarAnuncios(Pageable pageable) {
         return this.repository.findAll(pageable);
@@ -50,8 +48,9 @@ public class AnuncioService {
 
     }
 
-    public void removerAnuncio(Long id) throws Exception {
-        Anuncio anuncio = consultarAnuncioIdAnunciante(id);
+    public void removerAnuncio(Long idAnuncio) throws Exception {
+        Anuncio anuncio = consultarAnuncioIdAnunciante(idAnuncio);
+       // anuncio.setStatus(StatusAnuncio.INATIVO);
         repository.delete(anuncio);
     }
 }

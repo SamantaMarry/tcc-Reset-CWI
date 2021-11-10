@@ -22,15 +22,19 @@ public class CadastrarImovelRequest {
     private String identificacao;
 
     @NotNull(message = "Campo Obrigatório não informado")
-    private Usuario proprietario;
+    private Long idProprietario;
 
     private List<CaracteristicaImovel> caracteristicas;
 
 
-   public Imovel converterParaObjeto(CadastrarImovelRequest cadastrarImovelRequest, Usuario usuario) {return new
-           Imovel(cadastrarImovelRequest.getIdentificacao(), cadastrarImovelRequest.getEndereco(),
-           cadastrarImovelRequest.getProprietario(),usuario,
-           cadastrarImovelRequest.getCaracteristicas());}
+   public Imovel converterParaObjeto(CadastrarImovelRequest cadastrarImovelRequest, Usuario proprietario) {return new
+           Imovel(null,
+           cadastrarImovelRequest.getIdentificacao(),
+           cadastrarImovelRequest.getTipoImovel(),
+           cadastrarImovelRequest.getEndereco(),
+           proprietario,
+           cadastrarImovelRequest.getCaracteristicas());
 
+   }
 }
 

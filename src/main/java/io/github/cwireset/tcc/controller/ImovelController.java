@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/imoveis")
@@ -37,28 +38,30 @@ public class ImovelController {
         return imovelService.listarImoveis(pageable);
     }
 
-    @GetMapping("/proprietarios/{idProprietario}")
+    @GetMapping(path = "/proprietarios/{idProprietario}")
     @ResponseStatus(HttpStatus.OK)
-    public Imovel consultarImovelProprietario(@PathVariable
+    public List<Imovel> consultarImovelProprietario(@PathVariable
                                                   @Valid
-                                                  @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long idProprietario){
+                                                  @NotNull(message = "Campo obrigatório não informado. Favor informar" +
+                                                          " o campo Id.") Long idProprietario) throws Exception{
         return imovelService.consultarImovelProprietario(idProprietario);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{idImovel}")
     @ResponseStatus(HttpStatus.OK)
     public Imovel consultarImovelId(@PathVariable
                                         @Valid
-                                        @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long id) throws Exception {
-        return this.imovelService.consultarImovelId(id);
+                                        @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.")
+                                                Long idImovel) throws Exception {
+        return this.imovelService.consultarImovelId(idImovel);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(path = "/{idImovel}")
     @ResponseStatus(HttpStatus.OK)
     public void removerImovel(@PathVariable
                                     @Valid
-                                    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long id) throws Exception{
-        this.imovelService.removerImovel(id);
+                                    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Id.") Long idImovel) throws Exception{
+        this.imovelService.removerImovel(idImovel);
 
     }
 

@@ -1,6 +1,7 @@
 package io.github.cwireset.tcc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,7 +39,19 @@ public class Anuncio {
 
     private String descricao;
 
-    public Anuncio(TipoAnuncio tipoAnuncio, Imovel imovel, Usuario usuario, BigDecimal valorDiaria, List<FormaPagamento> formasAceitas, String descricao) {
+    /*@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "status_anuncio")
+    private StatusAnuncio status;*/
 
+
+
+    /*public boolean statusAtivo(){
+       return this.status.equals(StatusAnuncio.ATIVO);
     }
+
+    public boolean statusInativo(){
+        return !statusAtivo();
+    }*/
+
 }

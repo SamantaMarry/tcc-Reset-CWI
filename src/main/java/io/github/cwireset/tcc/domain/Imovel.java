@@ -34,9 +34,4 @@ public class Imovel {
     @JoinColumn(name = "id_imovel")
     private List<CaracteristicaImovel> caracteristicas;
 
-
-    public Imovel(String identificacao, Endereco endereco, Usuario proprietario, Usuario usuario, List<CaracteristicaImovel> caracteristicas) {
-
-    }
-
 }
