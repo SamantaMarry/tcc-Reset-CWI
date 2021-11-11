@@ -2,9 +2,6 @@ package io.github.cwireset.tcc.request;
 
 import io.github.cwireset.tcc.domain.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;

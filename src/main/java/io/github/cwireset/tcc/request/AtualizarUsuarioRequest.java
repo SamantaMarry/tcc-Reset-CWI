@@ -33,4 +33,5 @@ public class AtualizarUsuarioRequest {
 
     private Endereco endereco;
 
+
 }
