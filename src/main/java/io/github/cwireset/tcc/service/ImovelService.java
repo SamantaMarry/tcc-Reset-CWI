@@ -1,8 +1,11 @@
 package io.github.cwireset.tcc.service;
 
 import io.github.cwireset.tcc.domain.Imovel;
+import io.github.cwireset.tcc.domain.StatusAnuncio;
 import io.github.cwireset.tcc.domain.Usuario;
 import io.github.cwireset.tcc.exception.IdNaoEncontradoException;
+import io.github.cwireset.tcc.exception.ImovelComIdNaoEncontradoException;
+import io.github.cwireset.tcc.exception.NãoPodeExcluirImovelComAnuncioException;
 import io.github.cwireset.tcc.repository.ImovelRepositoryImpl;
 import io.github.cwireset.tcc.request.CadastrarImovelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +22,12 @@ public class ImovelService {
     private ImovelRepositoryImpl repository;
     private UsuarioService usuarioService;
 
+
     @Autowired
     public ImovelService(ImovelRepositoryImpl repository, UsuarioService usuarioService) {
         this.repository = repository;
         this.usuarioService = usuarioService;
+
     }
 
     public Imovel cadastrarImovel(CadastrarImovelRequest cadastrarImovelRequest) throws Exception {
@@ -42,15 +47,19 @@ public class ImovelService {
 
     public Imovel consultarImovelId(Long idImovel) throws Exception{
         return this.repository.findById(idImovel)
-                .orElseThrow(() -> new IdNaoEncontradoException(idImovel));
+                .orElseThrow(() -> new ImovelComIdNaoEncontradoException(idImovel));
 
     }
 
-    public void removerImovel(Long idImovel) throws Exception{
+    public void removerImovel(Long idImovel) throws Exception {
         Imovel imovel = consultarImovelId(idImovel);
 
+        if (repository.existsByAnuncio(idImovel, StatusAnuncio.ATIVO)){
+            throw new NãoPodeExcluirImovelComAnuncioException(idImovel);
+        }
+
         if (!repository.existsById(idImovel)){
-            throw new IdNaoEncontradoException(idImovel);
+            throw new ImovelComIdNaoEncontradoException(idImovel);
         }
         this.repository.delete(imovel);
 

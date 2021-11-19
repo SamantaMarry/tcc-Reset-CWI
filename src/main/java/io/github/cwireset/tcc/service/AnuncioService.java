@@ -5,7 +5,8 @@ import io.github.cwireset.tcc.domain.Anuncio;
 import io.github.cwireset.tcc.domain.Imovel;
 import io.github.cwireset.tcc.domain.StatusAnuncio;
 import io.github.cwireset.tcc.domain.Usuario;
-import io.github.cwireset.tcc.exception.IdNaoEncontradoException;
+import io.github.cwireset.tcc.exception.ImovelComAnuncioException;
+import io.github.cwireset.tcc.exception.NenhumAnuncioComIdInformadoException;
 import io.github.cwireset.tcc.repository.AnuncioRepositoryImpl;
 import io.github.cwireset.tcc.request.CadastrarAnuncioRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static io.github.cwireset.tcc.domain.StatusAnuncio.ATIVO;
 
 @Service
 public class AnuncioService {
@@ -35,23 +38,27 @@ public class AnuncioService {
         Anuncio anuncio = new CadastrarAnuncioRequest().converterParaObjeto(cadastrarAnuncioRequest, imovelAnunciado,
                 anunciante);
 
+        if (!repository.existsByStatusAtivo(imovelAnunciado.getId(), ATIVO)){
+            throw new ImovelComAnuncioException(imovelAnunciado.getId());
+        }
+
         return this.repository.save(anuncio);
     }
 
 
     public Page<Anuncio> listarAnuncios(Pageable pageable) {
-        return this.repository.findByStatus(StatusAnuncio.ATIVO, pageable);
+        return this.repository.findByStatus(ATIVO, pageable);
 
     }
 
     public Anuncio consultarAnuncioId(Long id){
         return this.repository.findById(id)
-                .orElseThrow(() -> new IdNaoEncontradoException(id));
+                .orElseThrow(() -> new NenhumAnuncioComIdInformadoException(id));
     }
 
 
     public List<Anuncio> consultarAnuncioIdAnunciante(Long idAnunciante) throws Exception{
-        return this.repository.findByAnuncianteIdAndStatus(idAnunciante, StatusAnuncio.ATIVO);
+        return this.repository.findByAnuncianteIdAndStatus(idAnunciante, ATIVO);
     }
 
     public void removerAnuncio(Long id)  {

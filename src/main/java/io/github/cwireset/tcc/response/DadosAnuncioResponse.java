@@ -3,10 +3,17 @@ package io.github.cwireset.tcc.response;
 import io.github.cwireset.tcc.domain.FormaPagamento;
 import io.github.cwireset.tcc.domain.Imovel;
 import io.github.cwireset.tcc.domain.Usuario;
+import lombok.*;
 
+import javax.persistence.Entity;
 import java.util.List;
 
-public class    DadosAnuncioResponse {
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class DadosAnuncioResponse {
 
     private Long id;
 

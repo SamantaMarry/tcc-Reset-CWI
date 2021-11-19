@@ -1,10 +1,11 @@
 package io.github.cwireset.tcc.request;
 
-import io.github.cwireset.tcc.domain.Anuncio;
-import io.github.cwireset.tcc.domain.Periodo;
-import io.github.cwireset.tcc.domain.Reserva;
-import io.github.cwireset.tcc.domain.Usuario;
+import io.github.cwireset.tcc.domain.*;
+import io.github.cwireset.tcc.response.InformacaoReservaResponse;
 import lombok.*;
+
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -18,13 +19,27 @@ public class CadastrarReservaRequest {
     private Periodo periodo;
     private Integer quantidadePessoas;
 
-    public Reserva converterParaObjeto(CadastrarReservaRequest cadastrarReservaRequest, Usuario solicitante,
-                                       Anuncio anuncio){
+    public Reserva converterParaObjeto(CadastrarReservaRequest cadastrarReservaRequest, Anuncio anuncio,
+                                       Usuario solicitante, Pagamento formaPagamento){
         return new Reserva(null,
                 solicitante,
                 anuncio,
                 cadastrarReservaRequest.getPeriodo(),
-                cadastrarReservaRequest.getQuantidadePessoas());
+                cadastrarReservaRequest.getQuantidadePessoas(),
+                LocalDateTime.now(), formaPagamento);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

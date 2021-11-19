@@ -22,3 +22,5 @@ public class Pagamento {
     private StatusPagamento status;
 
 }
+
+
