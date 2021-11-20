@@ -1,6 +1,7 @@
 package io.github.cwireset.tcc.domain;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

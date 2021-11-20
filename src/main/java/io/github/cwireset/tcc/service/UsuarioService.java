@@ -56,13 +56,19 @@ public class UsuarioService {
         if (!repository.existsById(id)){
             throw new IdNaoEncontradoException(id);
         }
-        if (repository.existsByEmail(atualizarUsuarioRequest.getEmail())){
+        if (repository.existsByEmail(atualizarUsuarioRequest.getEmail()) ){
             throw new EmailJaCadastradoException(atualizarUsuarioRequest.getEmail());
         }
         usuario.setNome(atualizarUsuarioRequest.getNome());
         usuario.setEmail(atualizarUsuarioRequest.getEmail());
         usuario.setSenha(atualizarUsuarioRequest.getSenha());
-        usuario.setEndereco(atualizarUsuarioRequest.getEndereco());
+        usuario.getEndereco().setBairro(atualizarUsuarioRequest.getEndereco().getBairro());
+        usuario.getEndereco().setCep(atualizarUsuarioRequest.getEndereco().getCep());
+        usuario.getEndereco().setCidade(atualizarUsuarioRequest.getEndereco().getCidade());
+        usuario.getEndereco().setEstado(atualizarUsuarioRequest.getEndereco().getEstado());
+        usuario.getEndereco().setComplemento(atualizarUsuarioRequest.getEndereco().getComplemento());
+        usuario.getEndereco().setLogradouro(atualizarUsuarioRequest.getEndereco().getLogradouro());
+        usuario.getEndereco().setNumero(atualizarUsuarioRequest.getEndereco().getNumero());
         return repository.save(usuario);
     }
 

@@ -34,26 +34,46 @@ public class ReservaController {
     @GetMapping(path = "/solicitantes/{idSolicitante}")
     @ResponseStatus(HttpStatus.OK)
     public List<Reserva> consultarReservaSolicitante(@PathVariable
-                                                    @Valid
-                                                    @NotNull(message = "Campo obrigatório não informado. Favor informar" +
-                                                            " o campo Id.") Long idSolicitante) throws Exception{
+                                                     @Valid
+                                                     @NotNull(message = "Campo obrigatório não informado. Favor informar" +
+                                                             " o campo Id.") Long idSolicitante) throws Exception {
         return reservaService.consultarReservaSolicitante(idSolicitante);
     }
 
     @GetMapping(path = "/anuncios/anunciantes/{idAnunciante}")
     @ResponseStatus(HttpStatus.OK)
     public List<Reserva> consultarReservaAnunciante(@PathVariable
-                                                     @Valid
-                                                     @NotNull(message = "Campo obrigatório não informado. Favor informar" +
-                                                             " o campo Id.") Long idAnunciante) throws Exception{
+                                                    @Valid
+                                                    @NotNull(message = "Campo obrigatório não informado. Favor informar" +
+                                                            " o campo Id.") Long idAnunciante) throws Exception {
         return reservaService.consultarReservaAnunciante(idAnunciante);
     }
 
-   /* @PutMapping("/{idReserva}/pagamentos")
+    @PutMapping("/{idReserva}/pagamentos")
     public void pagarReserva(@PathVariable
-                                 @Valid
-                                 @NotNull(message = "Campo obrigatório não informado. Favor informar" +
-                                            " o campo Id.") Long idReserva, FormaPagamento formaPagamento)throws Exception{
+                             @Valid
+                             @NotNull(message = "Campo obrigatório não informado. Favor informar" +
+                                     " o campo Id.") Long idReserva, @RequestBody FormaPagamento formaPagamento) throws Exception {
         reservaService.pagarReserva(idReserva, formaPagamento);
-    }*/
+    }
+
+    @PutMapping("/{idReserva}/pagamentos/cancelar")
+    public void cancelarReserva(@PathVariable
+                                @Valid
+                                @NotNull(message = "Campo obrigatório não informado. Favor informar" +
+                                        " o campo Id.") Long idReserva) throws Exception {
+        reservaService.cancelarReserva(idReserva);
+
+
+    }
+
+    @PutMapping("/{idReserva}/pagamentos/estornar")
+    public void estornarReserva(@PathVariable
+                                @Valid
+                                @NotNull(message = "Campo obrigatório não informado. Favor informar" +
+                                        " o campo Id.") Long idReserva) throws Exception {
+        reservaService.estornarReserva(idReserva);
+
+
+    }
 }

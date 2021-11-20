@@ -1,6 +1,7 @@
 package io.github.cwireset.tcc.repository;
 
 import io.github.cwireset.tcc.domain.Usuario;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,8 @@ public interface UsuarioRepositoryImpl extends PagingAndSortingRepository<Usuari
 
     Optional<Usuario> findByCpf(String cpf);
 
+
+
 }
+//select count > 0 from usuario where email = meuemail e id_usuario <> meu_id
+

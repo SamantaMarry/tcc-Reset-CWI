@@ -2,6 +2,7 @@ package io.github.cwireset.tcc.repository;
 
 
 import io.github.cwireset.tcc.domain.Anuncio;
+import io.github.cwireset.tcc.domain.FormaPagamento;
 import io.github.cwireset.tcc.domain.StatusAnuncio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,9 +24,5 @@ public interface AnuncioRepositoryImpl extends PagingAndSortingRepository<Anunci
     boolean existsByStatusAtivo(Long id, StatusAnuncio ativo);
 
 
-
-
-
-
-
+    boolean existsByFormasAceitas(FormaPagamento formaPagamento);
 }
