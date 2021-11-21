@@ -50,19 +50,18 @@ public class ReservaService {
         cadastrarReservaRequest.getPeriodo().setDataHoraInicial(LocalDateTime.of(dataChegada,horaEntrada));
         cadastrarReservaRequest.getPeriodo().setDataHoraFinal(LocalDateTime.of(dataSaida,horaSaida));
 
-        if(reserva.getPeriodo().getDataHoraFinal().isBefore(reserva.getPeriodo().getDataHoraInicial())){
+        Long numeroDeDias = ChronoUnit.DAYS.between(dataChegada, dataSaida);
+
+
+        if(dataSaida.isBefore(dataChegada)){
             throw new DataFinalDaReservaMiorQueDataInicialException();
         }
 
-        if (!(ChronoUnit.DAYS.between(LocalDate.now(), dataChegada) > 1)) {
+        if (numeroDeDias < 1) {
             throw new NumeroMinimoDeDiariasException();
         }
 
-        LocalDate d1 = reserva.getPeriodo().getDataHoraInicial().toLocalDate();
-        LocalDate d2 = reserva.getPeriodo().getDataHoraFinal().toLocalDate();
-        long diffDias = ChronoUnit.DAYS.between(d1, d2);
-
-        if(anuncio.getImovel().getTipoImovel().equals(TipoImovel.POUSADA) && diffDias < 5){
+        if(anuncio.getImovel().getTipoImovel().equals(TipoImovel.POUSADA) && numeroDeDias < 5){
             throw new QuantidadeMinimaDeDiariasException();
         }
         if (anuncio.getImovel().getTipoImovel().equals(TipoImovel.HOTEL) && reserva.getQuantidadePessoas() < 2){
@@ -96,17 +95,17 @@ public class ReservaService {
 
     public void pagarReserva(Long idReserva, FormaPagamento formaPagamento) {
         Reserva reserva = this.repository.findById(idReserva)
-                .orElseThrow(() -> new IdReservaNãoLocalizadaException(idReserva));
+                .orElseThrow(() -> new IdReservaNaoLocalizadaException(idReserva));
 
         boolean formaPagamentoAceita = anuncioRepository.existsByFormasAceitas(formaPagamento);
 
 
        if (!formaPagamentoAceita){
-           throw new FormaPagamentoNãoCeitaPeloAnuncioException(formaPagamento,
+           throw new FormaPagamentoNaoCeitaPeloAnuncioException(formaPagamento,
                    reserva.getAnuncio().getFormasAceitas());
        }
         if (reserva.getPagamento().getStatus() != StatusPagamento.PENDENTE){
-            throw new NãoPodeRealizarPagamentoException();
+            throw new NaoPodeRealizarPagamentoException();
         }
 
        reserva.getPagamento().setStatus(StatusPagamento.PAGO);
@@ -117,10 +116,10 @@ public class ReservaService {
 
     public void cancelarReserva(Long idReserva) {
         Reserva reserva = this.repository.findById(idReserva)
-                .orElseThrow(() -> new IdReservaNãoLocalizadaException(idReserva));
+                .orElseThrow(() -> new IdReservaNaoLocalizadaException(idReserva));
 
         if (reserva.getPagamento().getStatus() != StatusPagamento.PENDENTE){
-            throw new NãoPodeRealizarCancelamentoException();
+            throw new NaoPodeRealizarCancelamentoException();
         }
 
         reserva.getPagamento().setStatus(StatusPagamento.CANCELADO);
@@ -130,11 +129,11 @@ public class ReservaService {
     public void estornarReserva(Long idReserva) {
 
         Reserva reserva = this.repository.findById(idReserva)
-                .orElseThrow(() -> new IdReservaNãoLocalizadaException(idReserva));
+                .orElseThrow(() -> new IdReservaNaoLocalizadaException(idReserva));
 
 
         if (reserva.getPagamento().getStatus() != StatusPagamento.PAGO){
-            throw new NãoPodeRealizarEstornoException();
+            throw new NaoPodeRealizarEstornoException();
         }
 
         reserva.getPagamento().setStatus(StatusPagamento.ESTORNADO);
@@ -146,9 +145,9 @@ public class ReservaService {
 
         LocalDate d1 = periodo.getDataHoraInicial().toLocalDate();
         LocalDate d2 = periodo.getDataHoraFinal().toLocalDate();
-        long diffDias = ChronoUnit.DAYS.between(d1, d2);
+        long numeroDias = ChronoUnit.DAYS.between(d1, d2);
         BigDecimal valorDiaria = new BigDecimal(String.valueOf(anuncio.getValorDiaria()));
-        BigDecimal valorDaReserva = valorDiaria.multiply(BigDecimal.valueOf(diffDias));
+        BigDecimal valorDaReserva = valorDiaria.multiply(BigDecimal.valueOf(numeroDias));
 
         return valorDaReserva;
 

@@ -3,9 +3,8 @@ package io.github.cwireset.tcc.service;
 import io.github.cwireset.tcc.domain.Imovel;
 import io.github.cwireset.tcc.domain.StatusAnuncio;
 import io.github.cwireset.tcc.domain.Usuario;
-import io.github.cwireset.tcc.exception.IdNaoEncontradoException;
 import io.github.cwireset.tcc.exception.ImovelComIdNaoEncontradoException;
-import io.github.cwireset.tcc.exception.NãoPodeExcluirImovelComAnuncioException;
+import io.github.cwireset.tcc.exception.NaoPodeExcluirImovelComAnuncioException;
 import io.github.cwireset.tcc.repository.ImovelRepositoryImpl;
 import io.github.cwireset.tcc.request.CadastrarImovelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class ImovelService {
         Imovel imovel = consultarImovelId(idImovel);
 
         if (repository.existsByAnuncio(idImovel, StatusAnuncio.ATIVO)){
-            throw new NãoPodeExcluirImovelComAnuncioException(idImovel);
+            throw new NaoPodeExcluirImovelComAnuncioException(idImovel);
         }
 
         if (!repository.existsById(idImovel)){

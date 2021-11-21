@@ -38,7 +38,7 @@ public class AnuncioService {
         Anuncio anuncio = new CadastrarAnuncioRequest().converterParaObjeto(cadastrarAnuncioRequest, imovelAnunciado,
                 anunciante);
 
-        if (!repository.existsByStatusAtivo(imovelAnunciado.getId(), ATIVO)){
+        if (repository.existsByStatusAtivo(imovelAnunciado.getId(), ATIVO)){
             throw new ImovelComAnuncioException(imovelAnunciado.getId());
         }
 

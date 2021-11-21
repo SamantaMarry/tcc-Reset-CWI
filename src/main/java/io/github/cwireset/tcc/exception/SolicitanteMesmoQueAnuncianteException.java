@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class SolicitanteMesmoQueAnuncianteException extends RuntimeException {
     public SolicitanteMesmoQueAnuncianteException(){
-            super("SolicitanteMesmoQueAnuncianteException");
+            super("O solicitante de uma reserva não pode ser o próprio anunciante.");
     }
 }
