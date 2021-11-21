@@ -56,7 +56,7 @@ public class UsuarioService {
         if (!repository.existsById(id)){
             throw new IdNaoEncontradoException(id);
         }
-        if (repository.existsByEmail(atualizarUsuarioRequest.getEmail()) ){
+        if (repository.existsByEmailIdigual(atualizarUsuarioRequest.getEmail(), id) > 0){
             throw new EmailJaCadastradoException(atualizarUsuarioRequest.getEmail());
         }
         usuario.setNome(atualizarUsuarioRequest.getNome());

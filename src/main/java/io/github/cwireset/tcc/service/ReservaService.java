@@ -54,6 +54,10 @@ public class ReservaService {
             throw new DataFinalDaReservaMiorQueDataInicialException();
         }
 
+        if (!(ChronoUnit.DAYS.between(LocalDate.now(), dataChegada) > 1)) {
+            throw new NumeroMinimoDeDiariasException();
+        }
+
         LocalDate d1 = reserva.getPeriodo().getDataHoraInicial().toLocalDate();
         LocalDate d2 = reserva.getPeriodo().getDataHoraFinal().toLocalDate();
         long diffDias = ChronoUnit.DAYS.between(d1, d2);
@@ -90,25 +94,24 @@ public class ReservaService {
 
     }
 
-    public void pagarReserva(Long idReserva, FormaPagamento formaPagamento) throws Exception {
+    public void pagarReserva(Long idReserva, FormaPagamento formaPagamento) {
         Reserva reserva = this.repository.findById(idReserva)
                 .orElseThrow(() -> new IdReservaNãoLocalizadaException(idReserva));
 
         boolean formaPagamentoAceita = anuncioRepository.existsByFormasAceitas(formaPagamento);
 
-        if (!reserva.getPagamento().getFormaEscolhida().equals(formaPagamentoAceita)) {
-            throw new FormaPagamentoNãoCeitaPeloAnuncioException(reserva.getPagamento().getFormaEscolhida(),
-                    reserva.getAnuncio().getFormasAceitas());
-        }
 
-        if (!reserva.getPagamento().getStatus().equals(StatusPagamento.PAGO)){
+       if (!formaPagamentoAceita){
+           throw new FormaPagamentoNãoCeitaPeloAnuncioException(formaPagamento,
+                   reserva.getAnuncio().getFormasAceitas());
+       }
+        if (reserva.getPagamento().getStatus() != StatusPagamento.PENDENTE){
             throw new NãoPodeRealizarPagamentoException();
         }
 
-        if (reserva.getPagamento().getStatus().equals(StatusPagamento.PENDENTE)){
-            reserva.getPagamento().setStatus(StatusPagamento.PAGO);
-            repository.save(reserva);
-        }
+       reserva.getPagamento().setStatus(StatusPagamento.PAGO);
+       repository.save(reserva);
+
 
     }
 

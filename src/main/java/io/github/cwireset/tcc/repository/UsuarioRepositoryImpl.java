@@ -19,8 +19,14 @@ public interface UsuarioRepositoryImpl extends PagingAndSortingRepository<Usuari
 
     Optional<Usuario> findByCpf(String cpf);
 
+    @Query("select count(u.id) from Usuario u where u.email = ?1 and u.id <> ?2")
+    int existsByEmailIdigual(String email, Long id);
+
+
+
+
 
 
 }
-//select count > 0 from usuario where email = meuemail e id_usuario <> meu_id
+
 
