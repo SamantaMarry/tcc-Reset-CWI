@@ -3,9 +3,6 @@ package io.github.cwireset.tcc.response;
 import io.github.cwireset.tcc.domain.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
-
 @Getter
 @Setter
 @Builder
@@ -24,10 +21,4 @@ public class InformacaoReservaResponse {
     private Periodo periodo;
 
     private Pagamento pagamento;
-
-
-
-
-
-
 }

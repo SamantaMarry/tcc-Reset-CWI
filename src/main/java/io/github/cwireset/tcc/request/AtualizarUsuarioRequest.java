@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,6 +31,5 @@ public class AtualizarUsuarioRequest {
     private LocalDate dataNascimento;
 
     private Endereco endereco;
-
 
 }

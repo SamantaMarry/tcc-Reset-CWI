@@ -2,7 +2,6 @@ package io.github.cwireset.tcc.exception;
 
 import io.github.cwireset.tcc.domain.FormaPagamento;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;

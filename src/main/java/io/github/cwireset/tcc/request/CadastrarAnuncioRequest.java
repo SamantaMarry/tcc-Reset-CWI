@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
-
-
 @Getter
 @Setter
 @Builder
@@ -43,11 +41,4 @@ public class CadastrarAnuncioRequest {
                 cadastrarAnuncioRequest.getFormasAceitas(),
                 cadastrarAnuncioRequest.getDescricao(),StatusAnuncio.ATIVO);
     }
-
-
-
-
-
-
-
 }

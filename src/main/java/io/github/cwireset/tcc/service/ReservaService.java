@@ -111,7 +111,6 @@ public class ReservaService {
        reserva.getPagamento().setStatus(StatusPagamento.PAGO);
        repository.save(reserva);
 
-
     }
 
     public void cancelarReserva(Long idReserva) {
@@ -152,5 +151,4 @@ public class ReservaService {
         return valorDaReserva;
 
     }
-
 }

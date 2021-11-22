@@ -1,6 +1,5 @@
 package io.github.cwireset.tcc.controller;
 
-
 import io.github.cwireset.tcc.domain.FormaPagamento;
 import io.github.cwireset.tcc.domain.Reserva;
 import io.github.cwireset.tcc.request.CadastrarReservaRequest;
@@ -73,7 +72,6 @@ public class ReservaController {
                                 @NotNull(message = "Campo obrigatório não informado. Favor informar" +
                                         " o campo Id.") Long idReserva) throws Exception {
         reservaService.estornarReserva(idReserva);
-
 
     }
 }

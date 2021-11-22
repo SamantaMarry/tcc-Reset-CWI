@@ -1,6 +1,5 @@
 package io.github.cwireset.tcc.exception;
 
-import io.github.cwireset.tcc.domain.Imovel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

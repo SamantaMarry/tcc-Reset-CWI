@@ -5,7 +5,6 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -34,7 +33,6 @@ public class CadastrarImovelRequest {
            cadastrarImovelRequest.getEndereco(),
            proprietario,
            cadastrarImovelRequest.getCaracteristicas());
-
    }
 }
 

@@ -1,13 +1,10 @@
 package io.github.cwireset.tcc.request;
 
 import io.github.cwireset.tcc.domain.*;
-import io.github.cwireset.tcc.response.InformacaoReservaResponse;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
@@ -34,18 +31,4 @@ public class CadastrarReservaRequest {
                 cadastrarReservaRequest.getQuantidadePessoas(),
                 LocalDateTime.now(), pagamento);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

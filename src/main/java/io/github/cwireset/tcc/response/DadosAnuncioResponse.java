@@ -5,7 +5,6 @@ import io.github.cwireset.tcc.domain.Imovel;
 import io.github.cwireset.tcc.domain.Usuario;
 import lombok.*;
 
-import javax.persistence.Entity;
 import java.util.List;
 
 @Getter
@@ -24,11 +23,4 @@ public class DadosAnuncioResponse {
     private List<FormaPagamento> formasAceitas;
 
     private String descricao;
-
-
-
-
-
-
-
 }

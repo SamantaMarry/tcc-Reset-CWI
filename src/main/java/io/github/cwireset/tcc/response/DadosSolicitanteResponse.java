@@ -13,5 +13,4 @@ public class DadosSolicitanteResponse {
     private Long id;
 
     private String nome;
-
 }

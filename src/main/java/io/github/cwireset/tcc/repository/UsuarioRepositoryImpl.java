@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-
 @Repository
 public interface UsuarioRepositoryImpl extends PagingAndSortingRepository<Usuario, Long> {
 
@@ -21,11 +20,6 @@ public interface UsuarioRepositoryImpl extends PagingAndSortingRepository<Usuari
 
     @Query("select count(u.id) from Usuario u where u.email = ?1 and u.id <> ?2")
     int existsByEmailIdigual(String email, Long id);
-
-
-
-
-
 
 }
 

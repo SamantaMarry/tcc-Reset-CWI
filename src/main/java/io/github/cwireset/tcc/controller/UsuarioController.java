@@ -1,6 +1,5 @@
 package io.github.cwireset.tcc.controller;
 
-
 import io.github.cwireset.tcc.domain.Usuario;
 import io.github.cwireset.tcc.request.AtualizarUsuarioRequest;
 import io.github.cwireset.tcc.service.UsuarioService;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/usuarios")
@@ -58,8 +55,4 @@ public class UsuarioController {
                                         Long id, @RequestBody @Valid AtualizarUsuarioRequest atualizarUsuarioRequest) throws Exception{
         usuarioService.alterarUsuario(id, atualizarUsuarioRequest);
     }
-
-
-
-
 }

@@ -1,6 +1,5 @@
 package io.github.cwireset.tcc.controller;
 
-
 import io.github.cwireset.tcc.domain.Imovel;
 import io.github.cwireset.tcc.request.CadastrarImovelRequest;
 import io.github.cwireset.tcc.service.ImovelService;
@@ -64,8 +63,4 @@ public class ImovelController {
         this.imovelService.removerImovel(idImovel);
 
     }
-
-
-
-
 }

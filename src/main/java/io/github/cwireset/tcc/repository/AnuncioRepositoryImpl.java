@@ -1,6 +1,5 @@
 package io.github.cwireset.tcc.repository;
 
-
 import io.github.cwireset.tcc.domain.Anuncio;
 import io.github.cwireset.tcc.domain.FormaPagamento;
 import io.github.cwireset.tcc.domain.StatusAnuncio;

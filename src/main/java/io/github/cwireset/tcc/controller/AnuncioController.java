@@ -51,7 +51,4 @@ public class AnuncioController {
         this.anuncioService.removerAnuncio(idAnuncio);
 
     }
-
-
-
 }

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class ImovelService {
 
@@ -63,6 +62,5 @@ public class ImovelService {
         this.repository.delete(imovel);
 
     }
-
 
 }
